@@ -1,0 +1,27 @@
+#include <stdio.h>
+#include <conio.h>
+#include <omp.h>
+int main(void) {
+char d[524288]; _textcolor(15);
+long unsigned int a=0, b=0, c=0, nz=0, p=0;								
+for (a=1; a<=524288; a++) {d[a]=0;}										/* Clean array elements (AEs)*/
+d[1]=1;																	/* Set first number */
+printf("2 to the power of (limit is 524,288): "); scanf("%lu",&p);		/* Get power */
+printf("Thinking...\n");
+for (a=1;a<=p; a++){													/* Run loop power times */
+for (b=1; b<=p; b++) {d[b]=d[b]*2;}										/* Run loop power times, multiply all AEs by 2 */
+	for (c=1; c<=p/3; c++) {											/* Run loop power times */	
+		if (d[c]<10) {d[c]=d[c];}										/* Test if AE is over 10 or not */
+		if (d[c]>=10) {d[c]=d[c]%10; d[c+1]=d[c+1]+1;}}}				/* If AE over 10; AE is %10, next AE is AE++ */	  
+																		/* 1 used as max sum is 9*2= 1 8 */
+for (a=p; a>=1; a--) 	{if (d[a]==0) {nz=nz+1;}						/* Clean leading zeros in array */
+						if (d[a]!=0) { break;}}							/* When non zero encountered stop */
+for (a=p-nz; a>=1; a--) {printf("%lu", d[a]);}							/* Print array / result */
+printf("\n\nNumber of digits is %lu \n\n", p-nz);						/* Print number of digits in result */
+return 0;}
+
+//for (a=1; a<=10; a++) {j*=a; ; printf("Factorial for %llu = %llu\n", a, j);}
+
+
+// Mercenne primes
+//for (a=2; a<=10; z++) {j=j*a; j=j+1; printf("j=%llu\n", j);}
